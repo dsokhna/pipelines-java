@@ -10,13 +10,11 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(b8e8ae43-2573-4f7f-967c-0f08a892e692)'
+    action: 'Create Or Update Resource Group'
+    templateLocation: 'Linked artifact'
+    deploymentMode: 'Incremental'
+
